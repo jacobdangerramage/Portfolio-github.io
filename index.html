@@ -8,16 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0e0e0f;--bg2:#161618;--bg3:#1e1e21;--text:#e8e6e1;--muted:#7a7874;--accent:#c8f060;--accent2:#60c8f0;--border:rgba(255,255,255,0.08);--font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace}
+:root{--bg:#1a2744;--bg2:#1e2e50;--bg3:#22345c;--text:#e8e6e1;--muted:#b8b8b8;--accent:#c41230;--accent2:#60c8f0;--border:rgba(255,255,255,0.08);--font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font-mono);font-size:15px;line-height:1.7;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(14,14,15,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(26,39,68,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--font-head);font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;color:var(--text);text-decoration:none}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
 .nav-links a:hover{color:var(--accent)}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(200,240,96,0.04) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,200,240,0.03) 0%,transparent 50%)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(0,0,0,0.04) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,200,240,0.03) 0%,transparent 50%)}
 .hero-tag{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
 .hero h1{font-family:var(--font-head);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
 .hero h1 span{color:var(--accent)}
@@ -210,26 +210,10 @@ footer{border-top:1px solid var(--border);padding:3rem;display:flex;justify-cont
   <p class="origins-intro reveal">Before college, I competed in PLTW engineering challenges. First place in both the rocket and glider competitions. These are the projects that got me into engineering.</p>
   <div class="origins-grid reveal">
     <div class="origin-item">
-      <img src="assets/Origins_Rocket_Flight.jpg" alt="Water rocket in flight">
-      <div class="origin-cap">
-        <div class="title">Water Rocket</div>
-        <div class="sub">2-liter bottle rocket, judged on distance and hang time</div>
-        <span class="badge">1st place</span>
-      </div>
-    </div>
-    <div class="origin-item">
       <img src="assets/Origins_Rocket_Page.png" alt="Rocket challenge page">
       <div class="origin-cap">
         <div class="title">Rocket — Design Package</div>
         <div class="sub">CAD model, technical drawings, fin geometry</div>
-      </div>
-    </div>
-    <div class="origin-item">
-      <img src="assets/Origins_Glider.jpg" alt="Glider in flight">
-      <div class="origin-cap">
-        <div class="title">Hand-Launched Glider</div>
-        <div class="sub">Foam and balsa glider, judged on flight distance</div>
-        <span class="badge">1st place</span>
       </div>
     </div>
     <div class="origin-item">
@@ -251,6 +235,28 @@ footer{border-top:1px solid var(--border);padding:3rem;display:flex;justify-cont
       <div class="origin-cap">
         <div class="title">Early Sketching</div>
         <div class="sub">Hand sketches from the rocket design process</div>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Rocket.jpg" alt="Rocket build">
+      <div class="origin-cap">
+        <div class="title">Rocket — Built</div>
+        <div class="sub">Finished 2-liter bottle rocket with nose cone and fins</div>
+        <span class="badge">1st place</span>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Rocket_Research.jpg" alt="Rocket research">
+      <div class="origin-cap">
+        <div class="title">Rocket — Research</div>
+        <div class="sub">Background research and design rationale</div>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Drawing.jpg" alt="Engineering drawing">
+      <div class="origin-cap">
+        <div class="title">Technical Drawing</div>
+        <div class="sub">Hand-drafted engineering drawing</div>
       </div>
     </div>
   </div>
