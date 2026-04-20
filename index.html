@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacob Ramage — Mechanical Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0e0e0f;--bg2:#161618;--bg3:#1e1e21;--text:#e8e6e1;--muted:#7a7874;--accent:#c8f060;--accent2:#60c8f0;--border:rgba(255,255,255,0.08);--font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-mono);font-size:15px;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(14,14,15,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-head);font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(200,240,96,0.04) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(96,200,240,0.03) 0%,transparent 50%)}
+.hero-tag{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero h1{font-family:var(--font-head);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero h1 span{color:var(--accent)}
+.hero-sub{max-width:500px;color:var(--muted);font-size:0.9rem;line-height:1.8;opacity:0;animation:fadeUp 0.8s 0.6s forwards}
+.hero-scroll{position:absolute;bottom:2rem;right:3rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;display:flex;align-items:center;gap:0.8rem;opacity:0;animation:fadeUp 0.8s 1s forwards}
+.hero-scroll::before{content:'';display:block;width:1px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent)}
+section{padding:6rem 3rem}
+.section-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem}
+.section-title{font-family:var(--font-head);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-bottom:3rem}
+#about{border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+.about-text p strong{color:var(--text);font-weight:500}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.skill-item{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1rem 1.2rem}
+.skill-item .skill-cat{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:0.4rem}
+.skill-item .skill-list{color:var(--text);font-size:0.82rem;line-height:1.6}
+#projects{border-top:1px solid var(--border)}
+.projects-list{display:flex;flex-direction:column;gap:8px}
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.3s}
+.project-card:hover{border-color:rgba(200,240,96,0.3)}
+.project-header{display:flex;align-items:center;justify-content:space-between;padding:1.8rem 2rem;cursor:pointer;user-select:none}
+.project-header-left{display:flex;align-items:center;gap:1.5rem}
+.project-num{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;min-width:2rem}
+.project-tag{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:0.2rem}
+.project-name{font-family:var(--font-head);font-size:1.3rem;font-weight:700;letter-spacing:-0.01em}
+.project-toggle{width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.2rem;transition:transform 0.3s,border-color 0.3s,color 0.3s;flex-shrink:0}
+.project-card.open .project-toggle{transform:rotate(45deg);border-color:var(--accent);color:var(--accent)}
+.project-body{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1)}
+.project-card.open .project-body{max-height:2000px}
+.project-inner{padding:0 2rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.project-desc{color:var(--muted);line-height:1.9;font-size:0.88rem}
+.project-desc p{margin-bottom:1rem}
+.project-desc p:last-child{margin-bottom:0}
+.project-desc strong{color:var(--text);font-weight:500}
+.project-media{display:flex;flex-direction:column;gap:0.8rem}
+.project-media img,.project-media video{width:100%;border-radius:6px;border:1px solid var(--border);display:block}
+.img-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.img-row img{width:100%;border-radius:6px;border:1px solid var(--border);display:block;object-fit:cover;aspect-ratio:4/3}
+#origins{border-top:1px solid var(--border)}
+.origins-intro{color:var(--muted);max-width:540px;margin-bottom:3rem;font-size:0.88rem;line-height:1.9}
+.origins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.origin-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.3s,transform 0.3s}
+.origin-item:hover{border-color:rgba(200,240,96,0.25);transform:translateY(-2px)}
+.origin-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.origin-cap{padding:0.9rem 1rem}
+.origin-cap .title{font-family:var(--font-head);font-weight:600;font-size:0.9rem;margin-bottom:0.2rem}
+.origin-cap .sub{font-size:0.75rem;color:var(--muted)}
+.origin-cap .badge{display:inline-block;margin-top:0.5rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(200,240,96,0.12);color:var(--accent);padding:2px 8px;border-radius:20px}
+footer{border-top:1px solid var(--border);padding:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-left{font-size:0.8rem;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--accent)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s,transform 0.7s}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:0 1.5rem 4rem}section{padding:4rem 1.5rem}.about-grid{grid-template-columns:1fr;gap:2.5rem}.project-inner{grid-template-columns:1fr}footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">Jacob Ramage</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#origins">Origins</a></li>
+    <li><a href="assets/Jacob_Ramage_Resume_v_8.pdf" target="_blank">Resume</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tag">Mechanical Engineering — NC State University</p>
+  <h1>Jacob<br><span>Ramage</span></h1>
+  <p class="hero-sub">I design and build mechanical systems — from drivetrain mechanisms on a solar vehicle to servo-driven animatronics. Sophomore at NC State pursuing ME with a minor in Astrophysics.</p>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title reveal">About Me</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>sophomore Mechanical Engineering student</strong> at NC State with a minor in Astrophysics and a 3.7 GPA. I work on the Vehicle Dynamics team for <strong>Solarpack</strong>, NC State's solar-powered vehicle team, where I design and fabricate real drivetrain components that go on a car that actually runs.</p>
+      <p>I've been building things since high school — rockets, gliders, animatronics. Engineering isn't just what I'm studying, it's what I do for fun.</p>
+      <p>I'm actively looking for a <strong>summer 2026 internship</strong>. Reach me at <strong>jacobdangerramage@gmail.com</strong>.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-cat">CAD</div><div class="skill-list">Fusion 360<br>SolidWorks</div></div>
+      <div class="skill-item"><div class="skill-cat">Fabrication</div><div class="skill-list">MIG Welding<br>3D Printing<br>Shop Tools</div></div>
+      <div class="skill-item"><div class="skill-cat">Code</div><div class="skill-list">MATLAB</div></div>
+      <div class="skill-item"><div class="skill-cat">Tools</div><div class="skill-list">Microsoft Office<br>G Suite</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label">Engineering Work</p>
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="projects-list">
+
+    <div class="project-card reveal" onclick="toggleCard(this)">
+      <div class="project-header">
+        <div class="project-header-left">
+          <span class="project-num">01</span>
+          <div class="project-title-wrap">
+            <div class="project-tag">Solarpack — Drivetrain</div>
+            <div class="project-name">Chain Tensioner Mechanism</div>
+          </div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-body">
+        <div class="project-inner">
+          <div class="project-desc">
+            <p>Solarpack's drivetrain uses a chain drive, and maintaining proper chain tension under dynamic load is critical — too loose and the chain skips, too tight and it binds. I was tasked with designing a tensioner from scratch.</p>
+            <p>The mechanism uses a <strong>spring-loaded pivoting arm</strong> with an integrated sprocket that rides the chain. I calculated the required spring force based on chain tension requirements and dynamic loading, selected spring specifications, and chose materials for wear resistance at the contact point.</p>
+            <p>The design went through <strong>multiple prototype iterations</strong>. The assembly consists of a two-part base, a sliding arm, and a sprocket — all modeled in Fusion 360 and currently being machined.</p>
+          </div>
+          <div class="project-media">
+            <img src="assets/Fenrir_Chain_Tensioner_Angled_View_with_Spring.png" alt="Chain tensioner with spring">
+            <div class="img-row">
+              <img src="assets/Fenrir_Chain_Tensioner_Angled_View.png" alt="Chain tensioner angled">
+              <img src="assets/Fenrir_Chain_Tensioner_Overhead.png" alt="Chain tensioner overhead">
+            </div>
+            <img src="assets/Fenrir_Car.jpg" alt="Solarpack Fenrir vehicle" style="object-fit:cover;aspect-ratio:16/9;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="toggleCard(this)">
+      <div class="project-header">
+        <div class="project-header-left">
+          <span class="project-num">02</span>
+          <div class="project-title-wrap">
+            <div class="project-tag">Solarpack — Drivetrain</div>
+            <div class="project-name">Drivetrain Adapter Plate</div>
+          </div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-body">
+        <div class="project-inner">
+          <div class="project-desc">
+            <p>During drivetrain assembly, we discovered that the differential and driveshaft used <strong>incompatible interface geometries</strong> — they simply wouldn't connect. Rather than sourcing a custom part or replacing a component, I designed an adapter plate to bridge the two.</p>
+            <p>The solution is a flat metal disc with <strong>two sets of mating features</strong> — one matching the differential output and one matching the driveshaft flange. Modeled in Fusion 360 and fabricated from steel plate, the part transmits full drivetrain torque without slipping or deforming.</p>
+            <p>Part is installed and the drivetrain is functional.</p>
+          </div>
+          <div class="project-media">
+            <img src="assets/Adapter_CAD_View.png" alt="Drivetrain adapter plate CAD">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="toggleCard(this)">
+      <div class="project-header">
+        <div class="project-header-left">
+          <span class="project-num">03</span>
+          <div class="project-title-wrap">
+            <div class="project-tag">Personal Project</div>
+            <div class="project-name">Dragon Animatronic</div>
+          </div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-body">
+        <div class="project-inner">
+          <div class="project-desc">
+            <p>A fully 3D-printed animatronic dragon with <strong>coordinated wing flapping and tail wagging</strong>, driven by servo motors through a custom gear linkage system. Designed entirely in Fusion 360.</p>
+            <p>The wing mechanism uses a <strong>spur gear train</strong> to translate servo rotation into synchronized bilateral wing motion. The tail uses a segmented spine linkage for fluid movement. Both systems run off separate SG90 servos controlled by an Arduino.</p>
+            <p>Every structural component — shell panels, gear housings, linkage arms, body frame — was modeled and 3D printed. Built entirely outside of class as a personal project.</p>
+          </div>
+          <div class="project-media">
+            <video controls playsinline><source src="assets/Servotine_Video.mp4" type="video/mp4"></video>
+            <img src="assets/Servotine_CAD_View.png" alt="Dragon animatronic CAD">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="origins">
+  <p class="section-label">Where It Started</p>
+  <h2 class="section-title reveal">High School Work</h2>
+  <p class="origins-intro reveal">Before college, I competed in PLTW engineering challenges. First place in both the rocket and glider competitions. These are the projects that got me into engineering.</p>
+  <div class="origins-grid reveal">
+    <div class="origin-item">
+      <img src="assets/Origins_Rocket_Flight.jpg" alt="Water rocket in flight">
+      <div class="origin-cap">
+        <div class="title">Water Rocket</div>
+        <div class="sub">2-liter bottle rocket, judged on distance and hang time</div>
+        <span class="badge">1st place</span>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Rocket_Page.png" alt="Rocket challenge page">
+      <div class="origin-cap">
+        <div class="title">Rocket — Design Package</div>
+        <div class="sub">CAD model, technical drawings, fin geometry</div>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Glider.jpg" alt="Glider in flight">
+      <div class="origin-cap">
+        <div class="title">Hand-Launched Glider</div>
+        <div class="sub">Foam and balsa glider, judged on flight distance</div>
+        <span class="badge">1st place</span>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Glider_Page.png" alt="Glider design page">
+      <div class="origin-cap">
+        <div class="title">Glider — Design Package</div>
+        <div class="sub">Multi-view technical drawings with dimensions</div>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Mousetrap_Car.jpg" alt="Mousetrap car">
+      <div class="origin-cap">
+        <div class="title">Mousetrap Car</div>
+        <div class="sub">Spring-powered vehicle build challenge</div>
+      </div>
+    </div>
+    <div class="origin-item">
+      <img src="assets/Origins_Rocket_Sketch.jpg" alt="Rocket sketch">
+      <div class="origin-cap">
+        <div class="title">Early Sketching</div>
+        <div class="sub">Hand sketches from the rocket design process</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Jacob Ramage — Mechanical Engineering, NC State University</div>
+  <div class="footer-links">
+    <a href="mailto:jacobdangerramage@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/jacob-ramage" target="_blank">LinkedIn</a>
+    <a href="assets/Jacob_Ramage_Resume_v_8.pdf" target="_blank">Resume</a>
+  </div>
+</footer>
+
+<script>
+function toggleCard(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.project-card').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open')}
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
